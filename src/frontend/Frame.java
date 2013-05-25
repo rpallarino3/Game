@@ -7,7 +7,8 @@ public class Frame {
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setContentPane();
+		Screen screen = new Screen();
+		frame.setContentPane(screen);
 		frame.setResizable(false);
 		frame.pack();
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
