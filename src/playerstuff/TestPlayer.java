@@ -2,11 +2,11 @@ package playerstuff;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+//import Sprites;
 
 public class TestPlayer {
-	
 	public String player = "testplayer.png";
-	
+	private String pathToPlayer = "Sprites/testplayer.png";
 	private int x;
 	private int y;
 	private int dx;
