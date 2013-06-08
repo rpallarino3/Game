@@ -10,24 +10,41 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 
 import playerstuff.TestPlayer;
+import environment.TestBackground;
 
 public class Screen extends JComponent implements KeyListener, FocusListener {
 	
 	TestPlayer tp;
+	TestBackground tbg;
+	Dimension size;
 	
 	public Screen() {
-		Dimension size = new Dimension(900,600);
+		size = new Dimension(900,600);
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);
 		addFocusListener(this);
 		addKeyListener(this);
 		this.setFocusable(true);
+		initializePlayer();
+		initializeBackground();
+	}
+	
+	public void initializePlayer() {
 		tp = new TestPlayer();
+		tp.setX(size.width/2 - tp.getXOffset());
+		tp.setY(size.height/2 - tp.getYOffset());
+	}
+	
+	public void initializeBackground() {
+		tbg = new TestBackground();
 	}
 	
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, 900, 600);
+		g.setColor(Color.BLUE);
+		g.fillRect(400, 250, 100, 100);
+		g.drawImage(tbg.getImage(), -300, -200, this);
 		g.drawImage(tp.getImage(), tp.getX(), tp.getY(), this);
 	}
 	

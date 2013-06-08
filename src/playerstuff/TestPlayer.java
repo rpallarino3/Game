@@ -13,6 +13,8 @@ public class TestPlayer {
 	private int y;
 	private int dx;
 	private int dy;
+	private int xOffset;
+	private int yOffset;
 	private Image image;
 	
 	public TestPlayer() {
@@ -23,8 +25,8 @@ public class TestPlayer {
 //		}
 		ImageIcon ii = new ImageIcon(pathToPlayer);
 		image = ii.getImage();
-		x = 40;
-		y = 60;
+		xOffset = ii.getIconWidth()/2;
+		yOffset = ii.getIconHeight()/2;
 	}
 	
 	public void move() {
@@ -68,5 +70,22 @@ public class TestPlayer {
 	public int getY() {
 		return y;
 	}
+	
+	public int getXOffset() {
+		return xOffset;
+	}
+	
+	public int getYOffset() {
+		return yOffset;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
 
 }
