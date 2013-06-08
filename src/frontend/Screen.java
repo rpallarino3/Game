@@ -7,16 +7,21 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.ImageObserver;
+
 import javax.swing.*;
 
 import playerstuff.TestPlayer;
 import environment.TestBackground;
+import environment.Zone;
 
 public class Screen extends JComponent implements KeyListener, FocusListener {
 	
 	TestPlayer tp;
-	TestBackground tbg;
+	private Zone zone;
 	Dimension size;
+	private ImageObserver obs;
+	private int currentZoneNumber;
 	
 	public Screen() {
 		size = new Dimension(900,600);
@@ -26,6 +31,7 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		addFocusListener(this);
 		addKeyListener(this);
 		this.setFocusable(true);
+		//obs = new ImageObserver();
 		initializePlayer();
 		initializeBackground();
 	}
@@ -37,14 +43,15 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 	}
 	
 	public void initializeBackground() {
-		tbg = new TestBackground();
+		zone = new TestBackground();
 	}
 	
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, 900, 600);
 		g.setColor(Color.BLUE);
 		g.fillRect(400, 250, 100, 100);
-		g.drawImage(tbg.getImage(), -300, -200, this);
+		System.out.println("Width: " + zone.getImage().getWidth(obs) + " Height: " + zone.getImage().getHeight(obs));
+		g.drawImage(zone.getImage(), 0 + zone.getXOffset(), 0 + zone.getYOffset(), this);
 		g.drawImage(tp.getImage(), tp.getX(), tp.getY(), this);
 	}
 	
@@ -67,6 +74,7 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_A) {
+			
 			tp.moveLeft();
 			repaint();
 		}
