@@ -38,8 +38,7 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 	
 	public void initializePlayer() {
 		tp = new TestPlayer();
-		tp.setX(size.width/2 - tp.getXOffset());
-		tp.setY(size.height/2 - tp.getYOffset());
+		tp.setDrawLocation(size.width/2 - tp.getXOffset(),size.height/2 - tp.getYOffset());
 	}
 	
 	public void initializeBackground() {
@@ -52,7 +51,7 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		g.fillRect(400, 250, 100, 100);
 		System.out.println("Width: " + zone.getImage().getWidth(obs) + " Height: " + zone.getImage().getHeight(obs));
 		g.drawImage(zone.getImage(), 0 + zone.getXOffset(), 0 + zone.getYOffset(), this);
-		g.drawImage(tp.getImage(), tp.getX(), tp.getY(), this);
+		g.drawImage(tp.getImage(), tp.getDrawLocation().x, tp.getDrawLocation().y, this);
 	}
 	
 	public void focusGained(FocusEvent e) {
@@ -74,11 +73,22 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_A) {
-			
-			tp.moveLeft();
-			repaint();
+			if (tp.getGlobalLocation().x <= 450) {
+				tp.moveGlobalLeft();
+				tp.moveImageLeft();
+				repaint();
+			}
+			else {
+				tp.moveGlobalLeft();
+				zone.moveLeft();
+				repaint();
+				//Need to update player position as well
+			}
 		}
 		else if (key == KeyEvent.VK_D){ 
+			if (tp.getGlobalLocation().x >= zone.getImage().getWidth(obs) - 450) {
+				
+			}
 			tp.moveRight();
 			repaint();
 		}
