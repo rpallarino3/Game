@@ -39,6 +39,7 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 	public void initializePlayer() {
 		tp = new TestPlayer();
 		tp.setDrawLocation(size.width/2 - tp.getXOffset(),size.height/2 - tp.getYOffset());
+		tp.setGlobalLocation(450, 300);
 	}
 	
 	public void initializeBackground() {
@@ -71,9 +72,14 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		
+		//Need to fix to get multiple key codes at once
 		if (key == KeyEvent.VK_A) {
 			if (tp.getGlobalLocation().x <= 450) {
+				tp.moveGlobalLeft();
+				tp.moveImageLeft();
+				repaint();
+			}
+			else if (tp.getGlobalLocation().x >= zone.getImage().getWidth(obs) - 450) {
 				tp.moveGlobalLeft();
 				tp.moveImageLeft();
 				repaint();
@@ -82,23 +88,58 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 				tp.moveGlobalLeft();
 				zone.moveLeft();
 				repaint();
-				//Need to update player position as well
 			}
 		}
-		else if (key == KeyEvent.VK_D){ 
+		if (key == KeyEvent.VK_D){ 
 			if (tp.getGlobalLocation().x >= zone.getImage().getWidth(obs) - 450) {
-				
+				tp.moveGlobalRight();
+				tp.moveImageRight();
+				repaint();
 			}
-			tp.moveRight();
-			repaint();
+			else if (tp.getGlobalLocation().x <= 450) {
+				tp.moveGlobalRight();
+				tp.moveImageRight();
+				repaint();
+			}
+			else {
+				tp.moveGlobalRight();
+				zone.moveRight();
+				repaint();
+			}
 		}
-		else if (key == KeyEvent.VK_W) {
-			tp.moveUp();
-			repaint();
+		if (key == KeyEvent.VK_W) {
+			if (tp.getGlobalLocation().y <= 300) {
+				tp.moveGlobalUp();
+				tp.moveImageUp();
+				repaint();
+			}
+			else if (tp.getGlobalLocation().y >= zone.getImage().getHeight(obs) - 300) {
+				tp.moveGlobalUp();
+				tp.moveImageUp();
+				repaint();
+			}
+			else {
+				tp.moveGlobalUp();
+				zone.moveUp();
+				repaint();
+			}
 		}
-		else if (key == KeyEvent.VK_S){
-			tp.moveDown();
-			repaint();
+		if (key == KeyEvent.VK_S){
+			if (tp.getGlobalLocation().y <= 300) {
+				tp.moveGlobalDown();
+				tp.moveImageDown();
+				repaint();
+			}
+			else if (tp.getGlobalLocation().y >= zone.getImage().getHeight(obs)- 300) {
+				tp.moveGlobalDown();
+				tp.moveImageDown();
+				repaint();
+			}
+			else {
+				tp.moveGlobalDown();
+				zone.moveDown();
+				repaint();
+			}
 		}
 		
 		
