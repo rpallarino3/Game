@@ -15,8 +15,6 @@ public class TestPlayer {
 	private Point globalLocation;
 	private int x;
 	private int y;
-	private int dx;
-	private int dy;
 	private int xOffset;
 	private int yOffset;
 	private Image image;
@@ -36,65 +34,35 @@ public class TestPlayer {
 	}
 	
 	public void moveImageLeft() {
-		drawLocation.x -= 5;
+		drawLocation.x -= 1;
 	}
 	
 	public void moveImageRight() {
-		drawLocation.x += 5;
+		drawLocation.x += 1;
 	}
 	
 	public void moveImageUp() {
-		drawLocation.y -= 5;
+		drawLocation.y -= 1;
 	}
 	
 	public void moveImageDown() {
-		drawLocation.y += 5;
+		drawLocation.y += 1;
 	}
 	
 	public void moveGlobalLeft() {
-		globalLocation.x -= 5;
+		globalLocation.x -= 1;
 	}
 	
 	public void moveGlobalRight() {
-		globalLocation.x += 5;
+		globalLocation.x += 1;
 	}
 	
 	public void moveGlobalUp() {
-		globalLocation.y -= 5;
+		globalLocation.y -= 1;
 	}
 	
 	public void moveGlobalDown() {
-		globalLocation.y += 5;
-	}
-	
-	public void move() {
-		x += dx;
-		y += dy;
-	}
-	
-	public void moveLeft() {
-		dx = -5;
-		move();
-	}
-	
-	public void moveRight() {
-		dx = 5;
-		move();
-	}
-	
-	public void moveUp() {
-		dy = -5;
-		move();
-	}
-	
-	public void moveDown() {
-		dy = 5;
-		move();
-	}
-	
-	public void stopMove() {
-		dx = 0;
-		dy = 0;
+		globalLocation.y += 1;
 	}
 	
 	public Image getImage() {

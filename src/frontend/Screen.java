@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -22,9 +23,11 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 	Dimension size;
 	private ImageObserver obs;
 	private int currentZoneNumber;
+	private ArrayList<Integer> keysPressed;
 	
 	public Screen() {
 		size = new Dimension(900,600);
+		keysPressed = new ArrayList<Integer>();
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);
@@ -50,9 +53,10 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		g.fillRect(0, 0, 900, 600);
 		g.setColor(Color.BLUE);
 		g.fillRect(400, 250, 100, 100);
-		System.out.println("Width: " + zone.getImage().getWidth(obs) + " Height: " + zone.getImage().getHeight(obs));
+		//System.out.println("Width: " + zone.getImage().getWidth(obs) + " Height: " + zone.getImage().getHeight(obs));
 		g.drawImage(zone.getImage(), 0 + zone.getXOffset(), 0 + zone.getYOffset(), this);
 		g.drawImage(tp.getImage(), tp.getDrawLocation().x, tp.getDrawLocation().y, this);
+		move();
 	}
 	
 	public void focusGained(FocusEvent e) {
@@ -69,87 +73,93 @@ public class Screen extends JComponent implements KeyListener, FocusListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		//Need to fix to get multiple key codes at once
-		if (key == KeyEvent.VK_A) {
+	
+	public void move() {
+		if (keysPressed.contains(KeyEvent.VK_A)) {
+			System.out.println("A");
 			if (tp.getGlobalLocation().x <= 450) {
 				tp.moveGlobalLeft();
 				tp.moveImageLeft();
-				repaint();
+				//repaint();
 			}
 			else if (tp.getGlobalLocation().x >= zone.getImage().getWidth(obs) - 450) {
 				tp.moveGlobalLeft();
 				tp.moveImageLeft();
-				repaint();
+				//repaint();
 			}
 			else {
 				tp.moveGlobalLeft();
 				zone.moveLeft();
-				repaint();
+				//repaint();
 			}
 		}
-		if (key == KeyEvent.VK_D){ 
+		if (keysPressed.contains(KeyEvent.VK_D)){ 
+			System.out.println("D");
 			if (tp.getGlobalLocation().x >= zone.getImage().getWidth(obs) - 450) {
 				tp.moveGlobalRight();
 				tp.moveImageRight();
-				repaint();
+				//repaint();
 			}
 			else if (tp.getGlobalLocation().x <= 450) {
 				tp.moveGlobalRight();
 				tp.moveImageRight();
-				repaint();
+				//repaint();
 			}
 			else {
 				tp.moveGlobalRight();
 				zone.moveRight();
-				repaint();
+				//repaint();
 			}
 		}
-		if (key == KeyEvent.VK_W) {
+		if (keysPressed.contains(KeyEvent.VK_W)) {
+			System.out.println("W");
 			if (tp.getGlobalLocation().y <= 300) {
 				tp.moveGlobalUp();
 				tp.moveImageUp();
-				repaint();
+				//repaint();
 			}
 			else if (tp.getGlobalLocation().y >= zone.getImage().getHeight(obs) - 300) {
 				tp.moveGlobalUp();
 				tp.moveImageUp();
-				repaint();
+				//repaint();
 			}
 			else {
 				tp.moveGlobalUp();
 				zone.moveUp();
-				repaint();
+				//repaint();
 			}
 		}
-		if (key == KeyEvent.VK_S){
+		if (keysPressed.contains(KeyEvent.VK_S)) {
+			System.out.println("S");
 			if (tp.getGlobalLocation().y <= 300) {
 				tp.moveGlobalDown();
 				tp.moveImageDown();
-				repaint();
+				//repaint();
 			}
 			else if (tp.getGlobalLocation().y >= zone.getImage().getHeight(obs)- 300) {
 				tp.moveGlobalDown();
 				tp.moveImageDown();
-				repaint();
+				//repaint();
 			}
 			else {
 				tp.moveGlobalDown();
 				zone.moveDown();
-				repaint();
+				//repaint();
 			}
 		}
-		
-		
+		repaint();
+	}
+
+	public void keyPressed(KeyEvent e) {
+		if (!keysPressed.contains(e.getKeyCode())) {
+			keysPressed.add(e.getKeyCode());
+		}		
 	}
 
 	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		
-		if (key == KeyEvent.VK_A || key == KeyEvent.VK_D || key == KeyEvent.VK_W || key == KeyEvent.VK_S){
-			tp.stopMove();
+		if (keysPressed.contains(e.getKeyCode())) {
+			keysPressed.remove((Object)e.getKeyCode());
+			System.out.println(keysPressed.size());
 		}
 		
 	}

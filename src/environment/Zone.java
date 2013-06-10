@@ -43,18 +43,18 @@ public abstract class Zone {
 	}
 	
 	public void moveUp() {
-		yOffset += 5;
+		yOffset += 1;
 	}
 	
 	public void moveDown() {
-		yOffset -= 5;
+		yOffset -= 1;
 	}
 	
 	public void moveLeft() {
-		xOffset += 5;
+		xOffset += 1;
 	}
 	
 	public void moveRight() {
-		xOffset -= 5;
+		xOffset -= 1;
 	}
 }
